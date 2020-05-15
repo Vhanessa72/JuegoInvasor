@@ -6,18 +6,18 @@ alto=480
 listaEnemigo=[]
 
 class Gatito(pygame.sprite.Sprite):
-    "Clase para el  gato"
+
+    """Clase para el  gato"""
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        # Agregando imagem
-        self.Imagen_Gato = pygame.image.load("Imagen/gatito.jpg")
-        self.Reducido= pygame.transform.scale(self.Imagen_Gato, (200,200))
-        self.rect = self.Reducido.get_rect()
+
+        self.imagen_gato = pygame.image.load("Imagen/gatito.jpg")
+        self.reducido= pygame.transform.scale(self.imagen_gato, (200,200))
+        self.rect = self.reducido.get_rect()
         self.rect.centerx =ancho/2
         self.rect.centery =alto-80
 
-        self.listaDisparo=[]
-        self.Vida=True
+        self.vida=True
         self.velocidad=30
 
     def movimientoDerecha(self):
@@ -27,7 +27,7 @@ class Gatito(pygame.sprite.Sprite):
         self.rect.left=self.rect.left-self.velocidad
         self.__movimiento()
     def __movimiento(self):
-        if self.Vida==True:
+        if self.vida==True:
             if self.rect.left<=0:
                 self.rect.left=0
             elif self.rect.right>900:
@@ -36,20 +36,21 @@ class Gatito(pygame.sprite.Sprite):
     def disparar(self):
         print ("disparo")
     def dibujar(self,superficie):
-        superficie.blit(self.Reducido,self.rect)
+        superficie.blit(self.reducido,self.rect)
 
 class Ratones(pygame.sprite.Sprite):
-    def __init__(self,posx,posy,distancia,imagenUno,imagenDos):
+
+    """Clase para el  raton"""
+    def __init__(self,posx,posy,distancia,imagen_uno,imagen_dos):
         pygame.sprite.Sprite.__init__(self)
 
-        self.imagenA=pygame.image.load(imagenUno)
-        self.Reducido_A = pygame.transform.scale(self.imagenA, (80, 100))
+        self.imagen_a=pygame.image.load(imagen_uno)
+        self.reducido_a = pygame.transform.scale(self.imagen_a, (80, 100))
 
-        self.imagenB=pygame.image.load(imagenDos)
-        self.Reducido_B = pygame.transform.scale(self.imagenB, (80, 100))
+        self.imagen_b=pygame.image.load(imagen_dos)
+        self.reducido_b = pygame.transform.scale(self.imagen_b, (80, 100))
 
-
-        self.listaImagenes=[self.Reducido_A,self.Reducido_B]
+        self.listaImagenes=[self.reducido_a,self.reducido_b]
         self.posImagen=0
         self.imagenRaton=self.listaImagenes[self.posImagen]
         self.rect = self.imagenRaton.get_rect()
@@ -62,7 +63,7 @@ class Ratones(pygame.sprite.Sprite):
 
         self.derecha=True
         self.contador=0
-        self.Max_descenso= self.rect.top+40
+        self.max_descenso= self.rect.top+40
 
         self.limiteDerecha=posx+distancia
         self.limiteIzquierda=posx-distancia
@@ -77,9 +78,9 @@ class Ratones(pygame.sprite.Sprite):
             self.__descenso()
 
     def __descenso(self):
-        if self.Max_descenso== self.rect.top:
+        if self.max_descenso== self.rect.top:
             self.contador=0
-            self.Max_descenso= self.rect.top+40
+            self.max_descenso= self.rect.top+40
         else:
             self.rect.top+=1
 
